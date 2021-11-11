@@ -30,6 +30,8 @@
   <script src="js/leaflet-providers.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
   <script src="js/L.Control.Locate.min.js" charset="utf-8"></script>
+  <script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
+
 
 </head>
 
@@ -62,6 +64,11 @@
     let ctlLayers;
     let objBasemaps;
     let objOverlays;
+    let punto_consulta;
+    let click_lat;
+    let click_long;
+    let lyr_punto_consulta_buffer;
+    let lyr_punto_consulta_buffer_inicializado = false;
 
     // *********** INPUT datos ***************
 
@@ -75,6 +82,20 @@
       )
     }
 
+    class Consulta {
+      constructor(long, lat, buffer_dist = 500) { //valor por defecto de Buffer
+        this.long = long;
+        this.lat = lat;
+        this.buffer_dist = buffer_dist;
+      }
+      buffer() {
+        const point = turf.point([this.long, this.lat]);
+        return turf.buffer(point, this.buffer_dist, {
+          units: 'meters'
+        });
+      }
+    }
+
     $(document).ready(function () {
       // *********** Inicialización del MAPA ***************
 
@@ -85,6 +106,21 @@
         [-34.70556694268478, -58.53175222064512],
         [-34.5265695420323, -58.33983035362891],
       ]);
+
+      mymap.on('click', function onMapClick(e) {
+        click_lat = e.latlng.lat
+        click_long = e.latlng.lng
+        punto_consulta = new Consulta(click_long, click_lat, 200)
+        if (lyr_punto_consulta_buffer != undefined) { //si ya está definida/tiene contenido
+          ctlLayers.removeLayer(lyr_punto_consulta_buffer);
+          mymap.removeLayer(lyr_punto_consulta_buffer);
+          lyr_punto_consulta_buffer = L.geoJson(punto_consulta.buffer()).addTo(mymap)
+          ctlLayers.addOverlay(lyr_punto_consulta_buffer, "Buffer")
+        } else {
+          lyr_punto_consulta_buffer = L.geoJson(punto_consulta.buffer()).addTo(mymap)
+          ctlLayers.addOverlay(lyr_punto_consulta_buffer, "Buffer")
+        }
+      })
 
 
       let lc = L.control.locate({
@@ -138,7 +174,6 @@
           return json.properties.clasificac == eleccion_ev;
         },
       });
-
 
       // ******* Setup Layer Control ***********
 
