@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <meta name="description"
+    content="Visor web con información geoespacial sobre espacios verdes de la Cuidad de Buenos Aires.">
+  <!-- completar acorde a proyecto final -->
+  <meta name="keywords"
+    content="cantero, jardín, urbano, buenos aires, plaza, parque, verde, espacio, mapa, visor, web, GIS, SIG, sistema, información, geográfica, leaflet, cippec, políticas, públicas">
+  <link rel="shortcut icon" type="image/png" href="https://www.cippec.org/wp-content/themes/cippec/favicon.png">
+  <title>Espacios Verdes de Buenos Aires</title>
+  <!-- Estilos -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script src="js/leaflet.ajax.min.js"></script>
+  <script src="js/leaflet-providers.js"></script>
+  <script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
+  <script async src='js/simulador.js'></script>
+
+
+</head>
+
+<body>
+  <!-- MAQUETADO inicialización -->
+  <header>
+    <div class="row">
+      <div class="col">
+        <a href="https://www.cippec.org/"><img class="header__logo" src="images/cippec-h.svg" alt="logo CIPPEC"></a>
+      </div>
+      <div class="col">
+        <h1 class="header__texto--titulo">
+          <strong>
+            ¿QUÉ TAN CERCA ESTOY DE UNA PLAZA O PARQUE?
+          </strong>
+        </h1>
+        <h2 class="header__texto--subtitulo">accesibilidad a espacios verdes en la Ciudad de Buenos Aires</h2>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="mapdiv"></div>
+  </main>
+
+</body>
+
+</html>
