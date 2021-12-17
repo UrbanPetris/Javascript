@@ -39,6 +39,7 @@ class ConsultaPunto {
     const point = turf.point([this.long, this.lat]);
     return turf.buffer(point, this.buffer_dist, {
       units: "meters",
+      steps: 20,
     });
   }
   checkCABA(lyrCABA) {
@@ -108,6 +109,7 @@ function style_ev(json) {
         fill: true,
         fillColor: "rgba(214, 208, 53, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -122,6 +124,7 @@ function style_ev(json) {
         fill: true,
         fillColor: "rgba(55, 54, 47, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -136,6 +139,7 @@ function style_ev(json) {
         fill: true,
         fillColor: "rgba(241, 8, 156, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -150,6 +154,7 @@ function style_ev(json) {
         fill: true,
         fillColor: "rgba(130, 0, 255, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -164,6 +169,7 @@ function style_ev(json) {
         fill: true,
         fillColor: "rgba(196, 94, 24, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -179,6 +185,7 @@ function style_ev(json) {
         fillOpacity: 0.5,
         fillColor: "rgba(182, 93, 124, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -194,6 +201,7 @@ function style_ev(json) {
         fillOpacity: 0.5,
         fillColor: "rgba(0, 247, 255, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -209,6 +217,7 @@ function style_ev(json) {
         fillOpacity: 0.5,
         fillColor: "rgba(244, 129, 140, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -224,6 +233,7 @@ function style_ev(json) {
         fillOpacity: 0.5,
         fillColor: "rgba(244, 181, 129, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -239,6 +249,7 @@ function style_ev(json) {
         fillOpacity: 0.5,
         fillColor: "rgba(129, 244, 166, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
 
@@ -253,6 +264,7 @@ function style_ev(json) {
         fill: true,
         fillColor: "rgba(9, 76, 54, 1)",
         interactive: true,
+        className: "ev",
       };
       break;
     //agregar estilos para los nuevos espacios verdes
@@ -268,6 +280,7 @@ function style_ev(json) {
         fillOpacity: 0.5,
         fillColor: "rgba(88,159,207,1.0)",
         interactive: true,
+        className: "ev",
       };
       break;
   }
@@ -312,7 +325,11 @@ function cargarCapa(lyr, lyr_name, lyrfunction) {
 function crear_capa_buffer() {
   return L.geoJson(punto_consulta.buffer(), {
     style: () => {
-      return { fillColor: "rgba(255, 0, 0, 1)", color: "rgba(255, 0, 0, 1)" };
+      return {
+        fillColor: "rgba(255, 0, 0, 1)",
+        color: "rgba(255, 0, 0, 1)",
+        className: "resultadoProcesamiento",
+      };
     },
     interactive: false,
   });
@@ -321,7 +338,11 @@ function crear_capa_buffer() {
 function crear_capa_interseccion() {
   return L.geoJson(procesamiento.intersect(), {
     style: () => {
-      return { fillColor: "rgba(255, 0, 0, 1)", color: "rgba(255, 0, 0, 1)" };
+      return {
+        fillColor: "rgba(255, 0, 0, 1)",
+        color: "rgba(255, 0, 0, 1)",
+        className: "resultadoProcesamiento",
+      };
     },
     interactive: false,
   });
@@ -524,6 +545,12 @@ $(function () {
 
   mymap.addLayer(lyrOSM);
   cargarEV(); //carga default de EV
+
+  mymap.on("layeradd", (e) => {
+    if (e.name == "prueba") {
+      console.log("Hola");
+    }
+  });
 
   // ******* Carga último reporte ***********
 
