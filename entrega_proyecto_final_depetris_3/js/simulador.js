@@ -141,6 +141,7 @@ class ReporteProcesamiento {
 
 // *******  Funciones de estilo y visualización ***********
 
+//guardar los objetos dentro de un objeto que contenga otros objetos y llamarlo asincrónicamente
 function style_ev(json) {
   let att = json.properties;
   switch (String(att.clasificac)) {
@@ -723,12 +724,13 @@ $(function () {
   $("#bufferDistElegida").text(localStorage.getItem("bufferDistElegida"));
 
   //esto debería cargarse una vez que carga el mapa
-  if (localStorage.length != 0)
+  if (localStorage.length != 0) {
     //si hay un último reporte, mostrarlo por unos segundos pero deshabilitar momentáneamente botón de reporte
     ctlBtnReporte.disable();
-  $("#reporteProcesamiento").trigger("sidebar:open", [{ speed: 2000 }]);
-  setTimeout(() => {
-    $("#reporteProcesamiento").trigger("sidebar:close");
-  }, 5000);
-  ctlBtnReporte.enable();
+    $("#reporteProcesamiento").trigger("sidebar:open", [{ speed: 2000 }]);
+    setTimeout(() => {
+      $("#reporteProcesamiento").trigger("sidebar:close");
+    }, 5000);
+    ctlBtnReporte.enable();
+  }
 });
