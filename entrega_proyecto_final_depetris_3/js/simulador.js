@@ -124,6 +124,7 @@ class ReporteProcesamiento {
     this.distrito_string = distrito_string;
   }
   visualizarReporte() {
+    //acá habría que borrar u ocultar el html de "No hay Reporte" y hacer un append de todo el html del reporte en $(#"reporteProcesamiento")
     $("#direccionConsulta").text(this.address_string);
     $("#distritoConsulta").text(this.distrito_string);
     $("#cantidadTotalEV").text(this.cantidad_ev);
@@ -519,6 +520,7 @@ function consultaEV(e) {
       );
       reporte_procesamiento.guardarReporte();
       reporte_procesamiento.visualizarReporte();
+      $("#reporteTitulo").text("Reporte");
       $("#reporteProcesamiento").trigger("sidebar:open");
       ctlBtnReporte.state("ocultar-reporte");
     });
@@ -717,6 +719,7 @@ $(function () {
 
   // ******* Carga último reporte ***********
 
+  //Podría inicializar aquí el reporte obteniendo datos del localStorage.. si no existe localStorage no se hace nada. Si existe, entonces se emplea un método para cambiar el html
   $("#direccionConsulta").text(localStorage.getItem("direccionConsulta"));
   $("#distritoConsulta").text(localStorage.getItem("distritoConsulta"));
   $("#cantidadTotalEV").text(localStorage.getItem("cantidadTotalEV"));
@@ -724,9 +727,11 @@ $(function () {
   $("#bufferDistElegida").text(localStorage.getItem("bufferDistElegida"));
 
   //esto debería cargarse una vez que carga el mapa
+  //debería ser un método de la clase Reporte
   if (localStorage.length != 0) {
     //si hay un último reporte, mostrarlo por unos segundos pero deshabilitar momentáneamente botón de reporte
     ctlBtnReporte.disable();
+    $("#reporteTitulo").text("Último Reporte");
     $("#reporteProcesamiento").trigger("sidebar:open", [{ speed: 2000 }]);
     setTimeout(() => {
       $("#reporteProcesamiento").trigger("sidebar:close");
