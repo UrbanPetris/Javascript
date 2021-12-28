@@ -495,7 +495,7 @@ $(function () {
   lyrDark = L.tileLayer.provider("CartoDB.DarkMatter");
 
   objBasemaps = {
-    "Open Street Maps": lyrOSM,
+    OpenStreetMaps: lyrOSM,
     "CartoDB Dark": lyrDark,
     "Esri World Imagery": lyrImagery,
     "Mapa Buenos Aires (GCBA)": lyrBSAS,
@@ -567,7 +567,7 @@ $(function () {
       {
         stateName: "mostrar-sidebar",
         icon: "bi bi-tree-fill",
-        title: "Mostrar Sidebar",
+        title: "Seleccionar Espacios Verdes y Distancia",
         onClick: function (control) {
           $("#sidebarController").css("visibility", "visible");
           $("#sidebarController").trigger("sidebar:open");
