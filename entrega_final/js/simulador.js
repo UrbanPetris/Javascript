@@ -177,7 +177,7 @@ let distritoString;
 $.ajax({
   url: "data/estilos.json",
   dataType: "json",
-  async: false,
+  async: true,
   success: function (data) {
     estilos = data;
   },
@@ -186,7 +186,7 @@ $.ajax({
 $.ajax({
   url: "data/barrios.json",
   dataType: "json",
-  async: false,
+  async: true,
   success: function (data) {
     lyrCABA = data;
   },
